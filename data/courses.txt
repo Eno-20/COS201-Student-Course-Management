@@ -1,0 +1,8 @@
+COS201	Computer Programming I	3
+COS203	Discrete Structures	2
+IFT211	Digital Logic Design	2
+ENT211	Entrepreneurship and Innovation	2
+SEN201	Introduction to Software Engineering	2
+MTH201	Mathematical Methods 1	2
+SEN299	SIWES 1	3
+MIVA-SEN203	Software Requirements Engineering	3

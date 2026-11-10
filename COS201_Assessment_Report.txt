@@ -1,0 +1,29 @@
+COS201 STUDENT COURSE MANAGEMENT SYSTEM
+ASSESSMENT REVIEW REPORT
+
+INTRODUCTION
+This report reviews the Student Course Management System for the COS201 Programming I mid-semester lab assessment. The review was based on the Java source files in src and tests run against the application. The existing courses file was inspected and preserved.
+
+DESCRIPTION OF THE SYSTEM
+The program manages course codes, titles, and credit units. It is implemented in Java. Main opens the Swing desktop interface by default; the original text-based menu remains available with the --console option. CourseManager stores courses in an ArrayList<Course> and handles operations and file storage. Course represents and validates an individual course.
+
+MAJOR FEATURES
+The application supports adding courses, viewing courses in a Swing table or console table, searching by course code, calculating total credit units, saving and loading records, and exiting. Course codes are normalized to uppercase and whitespace is normalized. Empty codes and titles, non-positive units, and duplicate codes are rejected. The GUI displays course-count and unit summaries and uses message dialogs for feedback.
+
+PROGRAMMING CONCEPTS USED
+The project demonstrates classes and objects through Course, CourseManager, Main, and CourseManagementGUI. Course uses private fields, a constructor, and getters. Methods separate the operations. Conditional statements handle choices and validation; loops process menu input and course collections. Strings are trimmed and normalized. Exceptions are caught for invalid input and file I/O.
+
+RECURSION
+CourseManager.searchCourseByCode(String) normalizes the supplied code and calls a private recursive method with index 0. That method checks the course at the current index, returns it if the code matches, returns null when the index reaches the end of the list, or calls itself with the next index. Both the GUI and console search use this recursive method. Matching is case-insensitive because both stored and searched codes are normalized to uppercase.
+
+FILE HANDLING AND EXCEPTION HANDLING
+CourseManager saves each course as a UTF-8 tab-separated line containing its code, title, and credit unit. Loading reads those lines and reconstructs Course objects. Duplicate codes and malformed or invalid records are skipped and reported. Missing and empty files are handled. File operations use try-with-resources and catch I/O exceptions. Course validation throws IllegalArgumentException when values are invalid; the GUI and console handle those cases and present feedback.
+
+TESTING PERFORMED
+All application Java sources compiled with javac -Xlint:all without compiler warnings. Workspace diagnostics reported no errors. Automated checks using temporary files verified course validation and normalization, duplicate prevention, recursive search for found and missing codes, total calculation, save and load, repeated-load duplicate prevention, and missing, empty, malformed, and invalid file handling. GUI tests verified startup loading, editable search input, Search button action, Enter-key search, matching and not-found messages, adding and rejecting invalid units, saving, loading, and refreshing the table and total summary. The console menu was also run against the saved data: it displayed eight courses, found MIVA-SEN203 regardless of input case, reported a nonexistent code, and calculated a total of 19 units. These tests did not write to the original courses file.
+
+CHALLENGES AND RESOLUTIONS
+During earlier search troubleshooting, an already-open application process was found to have started before the latest classes were compiled. An open Java process continues using the classes it loaded at startup, even after source files are recompiled. Closing and relaunching the application loads the updated classes. The search implementation itself was verified to call the recursive CourseManager method, and an automated GUI test confirmed the button and text field work together.
+
+CONCLUSION
+The reviewed application implements the required course operations, ArrayList storage, validation, recursive search, file reading and writing, exception handling, and GUI. Compilation and the tests listed above passed. Loading is additive: records are added to the current in-memory list and duplicate course codes are skipped, rather than replacing the list. This prevents duplicate codes and supports loading saved records; it also means a course removed externally from the file is not removed from an already populated session by the Load button. No other known assessment-blocking issue was found in this review.
